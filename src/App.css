@@ -35,12 +35,6 @@ body {
   align-items: center;
 }
 
-/* .center{
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-} */
-
 .circularButton {
   width: 50px;
   height: 50px;
@@ -57,7 +51,7 @@ body {
   text-align: center;
 }
 
-.test{
+/* .test{
     background-color: blueviolet;
 }
 
@@ -150,4 +144,4 @@ body {
 
 .hover {
   background-color: #0078d4;
-}
+} */
