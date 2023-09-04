@@ -1,28 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
-import location from '../../../src/icons/orange.png'
+import Marker from '../Map/Marker';
 
-const Marker = () => (
-  <div className='marker'>
-    <img className='m-img' src={location} alt="Location Icon" />
-  </div>
-);
-
-
-const MapContainer = () => {
+const MapContainer = (props) => {
   const [clickedLocation, setClickedLocation] = useState(null);
 
   /* useEffect(() => {
-    if (clickedLocation) {
-      console.log('clicked');
-      console.log(clickedLocation.lat);
-      console.log(clickedLocation.lng);
-    }
-  }, [clickedLocation]); */
-
-  const handleMapClick = ({ lat, lng }) => {
-    setClickedLocation({ lat, lng });
-  };
+    
+  }, []); */
 
   const defaultProps = {
     center: {
@@ -32,12 +17,28 @@ const MapContainer = () => {
     zoom: 10,
   };
 
+  const distanceToMouse = (pt, mp) => {
+    if (pt && mp) {
+      // return distance between the marker and mouse pointer
+      return Math.sqrt(
+        (pt.x - mp.x) * (pt.x - mp.x) + (pt.y - mp.y) * (pt.y - mp.y)
+      );
+    }
+  };
+
+  const handleMapClick = ( {lat, lng} ) => {
+    setClickedLocation({ lat, lng });
+    props.setLat(lat)
+    props.setLng(lng)
+  };
+
   return (
     <div style={{ height: '300px', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyDT_0tiTNzV5dw8Khl-K0cY5kMmrvcmlfA' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
+        distanceToMouse={distanceToMouse}
         onClick={handleMapClick}
       >
         {clickedLocation && (

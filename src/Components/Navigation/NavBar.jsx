@@ -14,8 +14,12 @@ import {ImSearch} from 'react-icons/im';
 function NavBar() {
 
   const [showLogin, setShowLogin] = useState(false)
+  const [logOrReg, setLogOrReg] = useState('')
 
-  const handleShow = () => setShowLogin(true);
+  const handleShow = (logOrReg) => {
+    setLogOrReg(logOrReg)
+    setShowLogin(true);
+  }
 
 
   return (
@@ -23,6 +27,8 @@ function NavBar() {
     <GoogleLogin
       show={showLogin}
       onHide={() => setShowLogin(false)}
+      logOrReg={logOrReg}
+      setLogOrReg={setLogOrReg}
     />
     <Navbar 
       /* fixed="top" */
@@ -47,8 +53,8 @@ function NavBar() {
             </Form>        
           </Nav>
           <Nav className='add'>
-            <Nav.Link> Register </Nav.Link>
-            <Nav.Link onClick={handleShow}> Login </Nav.Link>
+            <Nav.Link onClick={()=>handleShow('register')}> Register </Nav.Link>
+            <Nav.Link onClick={()=>handleShow('login')}> Login </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       

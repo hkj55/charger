@@ -11,40 +11,9 @@ const AddVehiclePop = (props) => {
 
   let variant = 'success';
 
-  const [customerId, setCustomerId] = useState(0); 
-  const [fromId, setFromId] = useState(0)
-
-  const [transferTo, setTransferTo] = useState([])
-  const [transferToOp, setTransferToOp] = useState([])
-  const [toFocus, setToFocus] = useState(false)
-  const [noTo, setNoTo] = useState(false); 
-  const [toId, setToId] = useState(0); 
-  const toRef = useRef(null)
-  const [desc, setDecs] = useState('')
-
-  useEffect(() => {
-  }, [customerId]);
-
-  useEffect(() => {
-    if(transferTo.length !== 0){
-      setToId(transferTo[0].id)
-    }
-  }, [transferTo]);
-  
-  useEffect(() => {
-    if(transferTo.length !== 0){
-      setToId(transferTo[0].id)
-    }   
-  }, [transferTo])
-
-  //check whether transfer to is empty for validation
-  const validateTo = () => {
-    if (noTo){
-      return true
-    }else{
-      return false
-    }
-  }
+  const [make, setMake] = useState('')
+  const [model, setModel] = useState('')
+  const [trim, setTrim] = useState('')
 
   const handleClose = (reason) => {
     props.setOpen(false);
@@ -100,8 +69,8 @@ const AddVehiclePop = (props) => {
                         <span className="mandatory"> *</span>                   
                         <Form.Select   
                             id="fromId" 
-                            onChange={() => props.setTransferFrom()}
-                            value={props.transferFrom}>
+                            onChange={() => setMake()}
+                            value={make}>
                             <option>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -113,8 +82,8 @@ const AddVehiclePop = (props) => {
                         <span className="mandatory"> *</span>                   
                         <Form.Select   
                             id="fromId" 
-                            onChange={() => props.setTransferFrom()}
-                            value={props.transferFrom}>
+                            onChange={() => setModel()}
+                            value={model}>
                             <option>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -126,8 +95,8 @@ const AddVehiclePop = (props) => {
                         <span className="mandatory"> *</span>                   
                         <Form.Select   
                             id="fromId" 
-                            onChange={() => props.setTransferFrom()}
-                            value={props.transferFrom}>
+                            onChange={() => setTrim()}
+                            value={trim}>
                             <option>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>

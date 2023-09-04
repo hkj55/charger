@@ -33,8 +33,16 @@ const GoogleLogin = (props) => {
     }
   },[props.show]);
 
-  const handleClick = () => {
-    console.log('Clicked')
+  useEffect(() => {
+    if(props.logOrReg === 'login'){
+      setIsLogin(true)
+    }else{
+      setIsLogin(false)
+    }
+  },[props]);
+
+  const handleClick = (lorOrReg) => {
+    props.setLogOrReg(lorOrReg)
   }
 
   return (
@@ -73,7 +81,18 @@ const GoogleLogin = (props) => {
                   />
                 </Form.Group>
                 <Row className="mb-3 mx-0">
-                <Button onClick={props.onHide}>Login</Button>
+                <Button 
+                  onClick={props.onHide}
+                  className={isLogin ? '' : 'hide'}
+                >
+                  Login
+                </Button>
+                <Button 
+                  onClick={props.onHide}
+                  className={isLogin ? 'hide' : ''}
+                >
+                  Register
+                </Button>
                 </Row>
               </Form>
             </Col>            
@@ -85,7 +104,7 @@ const GoogleLogin = (props) => {
         New member?
         <span 
             className='buttonSpan'
-            onClick={handleClick}
+            onClick={() => handleClick('register')}
         >
             Register
         </span>
@@ -94,6 +113,7 @@ const GoogleLogin = (props) => {
         Already have an account?
         <span 
             className='buttonSpan'
+            onClick={() => handleClick('login')}
         >
             Login
         </span>

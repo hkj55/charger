@@ -33,11 +33,36 @@ const Filter = (props) => {
 
   const [station, setStation] = useState(true);
   const [activeItem, setActiveItem] = useState('Any');
+  const [plugs, setPlugs] = useState([]);
+  const [amenities, setAmenities] = useState([]);
+
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false)
 
   const handleItemClick = (item) => {
     setActiveItem(item);
+  };
+
+  const handlePlugs = (event) => {
+    const checkboxValue = event.target.value;
+    if (event.target.checked) {
+      // Checkbox is checked, add its value to the parking array
+      setPlugs([...plugs, checkboxValue]);
+    } else {
+      // Checkbox is unchecked, remove its value from the parking array
+      setPlugs(plugs.filter(item => item !== checkboxValue));
+    }
+  };
+  
+  const handleAmenities = (event) => {
+    const checkboxValue = event.target.value;
+    if (event.target.checked) {
+      // Checkbox is checked, add its value to the amenities array
+      setAmenities([...amenities, checkboxValue]);
+    } else {
+      // Checkbox is unchecked, remove its value from the amenities array
+      setAmenities(amenities.filter(item => item !== checkboxValue));
+    }
   };
 
   const handleClose = () => setShow(false);
@@ -112,6 +137,8 @@ const Filter = (props) => {
                   <Form.Check
                     type={'checkbox'}
                     id={'ac1'}
+                    value={'CCS/SAE'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -127,7 +154,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac2'}
+                    value={'CHAdeMo'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -143,7 +172,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac3'}
+                    value={'J-1772'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -159,7 +190,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac4'}
+                    value={'Type 2'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -175,7 +208,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac5'}
+                    value={'Type 3'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -191,7 +226,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac6'}
+                    value={'Three Phase'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -207,7 +244,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac7'}
+                    value={'Caravan Main Socket'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -223,7 +262,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac8'}
+                    value={'GB/T'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -239,7 +280,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac9'}
+                    value={'GB/T (Fast)'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -255,7 +298,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac10'}
+                    value={'Wall'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -271,7 +316,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac11'}
+                    value={'Wall (BS1336)'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -287,7 +334,9 @@ const Filter = (props) => {
                 <Col md={4} className='filterBox'> 
                   <Form.Check
                     type={'checkbox'}
-                    id={'ac1'}
+                    id={'ac12'}
+                    value={'Wall (Euro)'}
+                    onChange={handlePlugs}
                     label={
                       <>
                         <img
@@ -310,7 +359,9 @@ const Filter = (props) => {
               <Col md={4} className='filterBox'> 
                 <Form.Check
                   type={'checkbox'}
-                  id={'ac1'}
+                  id={'a1'}
+                  value={'Dining'}
+                  onChange={handleAmenities}
                   label={
                     <>
                       <img
@@ -326,7 +377,9 @@ const Filter = (props) => {
               <Col md={4} className='filterBox'> 
                 <Form.Check
                   type={'checkbox'}
-                  id={'ac1'}
+                  id={'a2'}
+                  value={'Restrooms'}
+                  onChange={handleAmenities}
                   label={
                     <>
                       <img
@@ -342,7 +395,9 @@ const Filter = (props) => {
               <Col md={4} className='filterBox'> 
                 <Form.Check
                   type={'checkbox'}
-                  id={'ac1'}
+                  id={'a3'}
+                  value={'Shopping'}
+                  onChange={handleAmenities}
                   label={
                     <>
                       <img
@@ -358,7 +413,9 @@ const Filter = (props) => {
               <Col md={4} className='filterBox'> 
                 <Form.Check
                   type={'checkbox'}
-                  id={'ac1'}
+                  id={'a4'}
+                  value={'Lodging'}
+                  onChange={handleAmenities}
                   label={
                     <>
                       <img
@@ -374,7 +431,9 @@ const Filter = (props) => {
               <Col md={4} className='filterBox'> 
                 <Form.Check
                   type={'checkbox'}
-                  id={'ac1'}
+                  id={'a5'}
+                  value={'Park'}
+                  onChange={handleAmenities}
                   label={
                     <>
                       <img
@@ -390,7 +449,9 @@ const Filter = (props) => {
               <Col md={4} className='filterBox'> 
                 <Form.Check
                   type={'checkbox'}
-                  id={'ac1'}
+                  id={'a6'}
+                  value={'Grocery'}
+                  onChange={handleAmenities}
                   label={
                     <>
                       <img
@@ -406,7 +467,9 @@ const Filter = (props) => {
               <Col md={4} className='filterBox'> 
                 <Form.Check
                   type={'checkbox'}
-                  id={'ac1'}
+                  id={'a7'}
+                  value={'Wifi'}
+                  onChange={handleAmenities}
                   label={
                     <>
                       <img
@@ -422,7 +485,9 @@ const Filter = (props) => {
               <Col md={4} className='filterBox'> 
                 <Form.Check
                   type={'checkbox'}
-                  id={'ac1'}
+                  id={'a8'}
+                  value={'Free Chargings'}
+                  onChange={handleAmenities}
                   label={
                     <>
                       <img

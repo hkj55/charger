@@ -7,11 +7,10 @@ const Marker = ({ text, tooltip, $hover }) => {
   };
 
   return (
-    <div className={$hover ? "circle hover" : "circle"} onClick={handleClick}>
-      <span className="circleText" title={tooltip}>
-        {text}
-      </span>
+    <div className='marker'>
+      <img className='m-img' src={location} alt="Location Icon" />
     </div>
+    
   );
 };
 

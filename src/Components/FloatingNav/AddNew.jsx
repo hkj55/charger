@@ -9,16 +9,27 @@ import Col from 'react-bootstrap/Col';
 import MapContainer from './MapContainer';
 import { Categories, PlacesData } from '../../Data/Data';
 import StationCard from './StationCard';
+import api from '../../api/axios'
 
 const AddNew = (props) => {
 
   const [name, setName] = useState('')
-  const [category, setCategory] = useState('')
-  const [phone, setPhone] = useState('')
+  const [address, setAddress] = useState('')
+  const [description, setDescription] = useState('')
+  const [stations, setStations] = useState([])
+  const [open24, setOpen24] = useState(false)
+  const [restricted, setRestricted] = useState(false)
+  const [payment, setPayment] = useState(false)
   const [hours, setHours] = useState('')
   const [price, setPrice] = useState('')
-  const [newLat, setNewLat] = useState('')
-  const [newLng, setNewLng] = useState('')
+  const [phone, setPhone] = useState('')
+  const [parkingLevel, setParkingLevel] = useState('')
+  const [lat, setLat] = useState('')
+  const [lng, setLng] = useState('')/* 
+  const [newLocation, setNewLocation] = useState({}) */
+  const [parking, setParking] = useState([])
+  const [access, setAccess] = useState([])
+  const [amenities, setAmenities] = useState([])
   const [places, setPlaces] = useState(PlacesData)
   const [addDisabled, setAddDisabled] = useState(true)
   const [stationComponents, setStationComponents] = useState([{key:1, index:1}]);
@@ -28,7 +39,7 @@ const AddNew = (props) => {
 
   useEffect(() => {
     
-  }, [name, category, newLat, newLng]);
+  }, [name, address, ]);
 
   useEffect(() => {
     localStorage.setItem('places', JSON.stringify(props.places))   
@@ -37,21 +48,30 @@ const AddNew = (props) => {
 
   const addNew = () => {
     const id = PlacesData.length + 1
-    const newPlace = {id,  name, category, lat: newLat, lng: newLng, title: 'one' }
-   setPlaces([...places, newPlace])
+    const newPlace = {id,  name, stations, title: 'one' }
+   //setPlaces(newPlace)
 
     setName('')
-    setCategory('')
-    setNewLat('')
-    setNewLng('')
+    setStations([])
+    setLat('')
+    setLng('')
 
   }
 
   useEffect(() => {
     setName('')
-    setCategory('')
-    setNewLat('')
-    setNewLng('')
+    setAddress('')
+    setDescription('')
+    setStations([])
+    setLat('')
+    setLng('')
+    setOpen24('')
+    setPrice('')
+    setPhone('')
+    setParkingLevel('')
+    setParking([])
+    setAccess([])
+    setAmenities([])
   }, [props]);
 
 /*   useEffect(() => {
@@ -76,6 +96,64 @@ const AddNew = (props) => {
     setIndex(newIndex)
   };
 
+  const handleParking = (event) => {
+    const checkboxValue = event.target.value;
+    if (event.target.checked) {
+      // Checkbox is checked, add its value to the parking array
+      setParking([...parking, checkboxValue]);
+    } else {
+      // Checkbox is unchecked, remove its value from the parking array
+      setParking(parking.filter(item => item !== checkboxValue));
+    }
+  };
+
+  const handleAccess = (event) => {
+    const checkboxValue = event.target.value;
+    if (event.target.checked) {
+      // Checkbox is checked, add its value to the access array
+      setAccess([...access, checkboxValue]);
+    } else {
+      // Checkbox is unchecked, remove its value from the access array
+      setAccess(access.filter(item => item !== checkboxValue));
+    }
+  };
+  
+  const handleAmenities = (event) => {
+    const checkboxValue = event.target.value;
+    if (event.target.checked) {
+      // Checkbox is checked, add its value to the amenities array
+      setAmenities([...amenities, checkboxValue]);
+    } else {
+      // Checkbox is unchecked, remove its value from the amenities array
+      setAmenities(amenities.filter(item => item !== checkboxValue));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newlocation = {name, address, description, stations, open24, restricted,
+                    payment, hours, price, phone, parkingLevel, lat, lng, parking,
+                    access, amenities};
+    try {
+      const response = await api.post('/locations', newlocation);
+      console.log(response)
+      setName('')
+      setAddress('')
+      setDescription('')
+      setStations([])
+      setLat('')
+      setLng('')
+      setOpen24('')
+      setPrice('')
+      setPhone('')
+      setParkingLevel('')
+      setParking([])
+      setAccess([])
+      setAmenities([])
+    } catch (err) {
+      console.log(`Error: ${err.message}`);
+    }
+  }
   
   return (
     <Modal
@@ -115,16 +193,18 @@ const AddNew = (props) => {
                       <Form.Control
                         type="text"
                         id = 'nameId'
-                        value={name}
-                        onChange={e => setName(e.target.value)}
+                        value={address}
+                        onChange={e => setAddress(e.target.value)}
                       />
                     </Form.Group>                    
                   </Col>
                 </Row>
                 <Row className="mb-5 ms-5 map-div">      
                     <MapContainer
-                      /* setNewLat = {setNewLat}
-                      setNewLng = {setNewLng} */
+                      lat={lat}
+                      setLat={setLat}
+                      lng={lng}
+                      setLng={setLng}
                     />     
                 </Row>
                 <Row>
@@ -134,8 +214,8 @@ const AddNew = (props) => {
                       <Form.Control
                         type="text"
                         id = 'nameId'
-                        value={phone}
-                        onChange={e => setPhone(e.target.value)}
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
                       />
                     </Form.Group>                    
                   </Col>            
@@ -146,6 +226,8 @@ const AddNew = (props) => {
                         key={station.key}
                         index={station.index}
                         handleRemove={() => handleRemove(station.key)}
+                        stations={stations}
+                        setStations={setStations}
                       />
                     ))}
                     <div className='m-3'>
@@ -214,8 +296,8 @@ const AddNew = (props) => {
                       <Form.Control
                         type="text"
                         id = 'nameId'
-                        value={price}
-                        onChange={e => setPrice(e.target.value)}
+                        value={parkingLevel}
+                        onChange={e => setParkingLevel(e.target.value)}
                       />
                     </Form.Group>                    
                   </Col>
@@ -226,6 +308,8 @@ const AddNew = (props) => {
                       type={'checkbox'}
                       id={'ac1'}
                       label={'Pull through parking'}
+                      value={'Pull through parking'}
+                      onChange={handleParking}
                     />
                     </Col>
                     <Col xs={6} md={4} className='add'>
@@ -233,6 +317,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac2'}
                         label={'Pull in parking'}
+                        value={'Pull in parking'}
+                        onChange={handleParking}
                       />
                     </Col>
                     <Col xs={6} md={4} className='add'>
@@ -240,6 +326,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac3'}
                         label={'Trailer Parking'}
+                        value={'Trailer Parking'}
+                        onChange={handleParking}
                       />
                     </Col>
                     <Col xs={6} md={4} className='add'>
@@ -247,6 +335,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac3'}
                         label={'Trailer Friendly'}
+                        value={'Trailer Friendly'}
+                        onChange={handleParking}
                       />
                     </Col>
                     <Col xs={6} md={4} className='add'>
@@ -254,6 +344,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac2'}
                         label={'Garage'}
+                        value={'Garage'}
+                        onChange={handleParking}
                       />
                     </Col>
                     <Col xs={6} md={4} className='add'>
@@ -261,6 +353,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac3'}
                         label={'Handicapped parking'}
+                        value={'Handicapped parking'}
+                        onChange={handleParking}
                       />
                     </Col>
                   </Row>
@@ -271,6 +365,8 @@ const AddNew = (props) => {
                       type={'checkbox'}
                       id={'ac1'}
                       label={'Customers Only'}
+                      value={'Customers Only'}
+                      onChange={handleAccess}
                     />
                     </Col>
                     <Col xs={6} md={3} className='add'>
@@ -278,6 +374,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac2'}
                         label={'Guest Only'}
+                        value={'Guest Only'}
+                        onChange={handleAccess}
                       />
                     </Col>
                     <Col xs={6} md={3} className='add'>
@@ -285,6 +383,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac3'}
                         label={'Residents Only'}
+                        value={'Residents Only'}
+                        onChange={handleAccess}
                       />
                     </Col>
                     <Col xs={6} md={3} className='add'>
@@ -292,6 +392,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac3'}
                         label={'Employees Only'}
+                        value={'Employees Only'}
+                        onChange={handleAccess}
                       />
                     </Col>
                   </Row>
@@ -302,6 +404,8 @@ const AddNew = (props) => {
                       type={'checkbox'}
                       id={'ac1'}
                       label={'Restroom'}
+                      value={'Restroom'}
+                      onChange={handleAmenities}
                     />
                     </Col>
                     <Col xs={6} md={3} className='add'>
@@ -309,6 +413,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac2'}
                         label={'Parking'}
+                        value={'Parking'}
+                        onChange={handleAmenities}
                       />
                     </Col>
                     <Col xs={6} md={3} className='add'>
@@ -316,6 +422,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac3'}
                         label={'Wifi'}
+                        value={'Wifi'}
+                        onChange={handleAmenities}
                       />
                     </Col>
                     <Col xs={6} md={3} className='add'>
@@ -323,6 +431,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac3'}
                         label={'Dining'}
+                        value={'Dining'}
+                        onChange={handleAmenities}
                       />
                     </Col>
                     <Col xs={6} md={3} className='add'>
@@ -330,6 +440,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac2'}
                         label={'Shopping'}
+                        value={'Shopping'}
+                        onChange={handleAmenities}
                       />
                     </Col>
                     <Col xs={6} md={3} className='add'>
@@ -337,6 +449,8 @@ const AddNew = (props) => {
                         type={'checkbox'}
                         id={'ac3'}
                         label={'Grocery'}
+                        value={'Grocery'}
+                        onChange={handleAmenities}
                       />
                     </Col>
                   </Row>
@@ -349,8 +463,8 @@ const AddNew = (props) => {
       <Modal.Footer>
         <Button
           className='add'
-          onClick={() => addNew()}
-          disabled={name === '' || category === '' || newLat === '' || newLng === ''}
+          onClick={handleSubmit}
+          disabled={name === '' || address === '' || lat === '' || lng === ''}
         >
           Add Station
         </Button>

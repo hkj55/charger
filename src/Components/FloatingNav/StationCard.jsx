@@ -12,11 +12,58 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import api from '../../api/axios'
 
 const StationCard = (props) => {
 
     const[indexNo, setIndexNo] = useState(0)
     const [age, setAge] = React.useState('');
+    const [plugs, setPlugs] = useState([])
+    const [plug, setPlug] = useState('')
+    const [networks, setNetworks] = useState([])
+    const [network, setNetwork] = useState('')
+
+    
+  useEffect(() => {
+    const fetchPlugs = async () => {
+      try {
+        const response = await api.get('/Plugs');
+        setPlugs(response.data);
+      } catch (err) {
+        if (err.response) {
+          // Not in the 200 response range 
+          console.log(err.response.data);
+          console.log(err.response.status);
+          console.log(err.response.headers);
+        } else {
+          console.log(`Error: ${err.message}`);
+        }
+      }
+    }
+
+    const fetchNetworks = async () => {
+      try {
+        const response = await api.get('/Network');
+        setNetworks(response.data);
+      } catch (err) {
+        if (err.response) {
+          // Not in the 200 response range 
+          console.log(err.response.data);
+          console.log(err.response.status);
+          console.log(err.response.headers);
+        } else {
+          console.log(`Error: ${err.message}`);
+        }
+      }
+    }
+
+    fetchPlugs();
+    fetchNetworks();
+  }, [])
+
+  useEffect(() => {
+    props.setStations([{plug, network}])
+  },[plug, network, props])
 
     const handleChange = (event) => {
       setAge(event.target.value);
@@ -35,22 +82,22 @@ const StationCard = (props) => {
                 {props.index}
             </Col>
             <Col md={9}>
-                <Form>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
                     <InputLabel id="demo-simple-select-standard-label">Station</InputLabel>
                     <Select
                       labelId="demo-simple-select-standard-label"
                       id="demo-simple-select-standard"
-                      value={age}
+                      value={plug}
                       onChange={handleChange}
-                      label="Age"
+                      label="Station"
                       >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {
+                        plugs.map((item) => (
+                          <MenuItem key={item.id} value={item.name}>
+                            {item.name}
+                          </MenuItem>
+                        ))
+                      }
                     </Select>
                   </FormControl>   
                   <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
@@ -58,19 +105,19 @@ const StationCard = (props) => {
                     <Select
                       labelId="demo-simple-select-standard-label"
                       id="demo-simple-select-standard"
-                      value={age}
+                      value={network}
                       onChange={handleChange}
-                      label="Age"
+                      label="Network"
                       >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {
+                        networks.map((item) => (
+                          <MenuItem key={item.id} value={item.name}>
+                            {item.name}
+                          </MenuItem>
+                        ))
+                      }
                     </Select>
-                  </FormControl>                
-                </Form>
+                  </FormControl>     
             </Col>
         </Row>
       </CardContent>

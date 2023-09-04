@@ -1,0 +1,194 @@
+{
+  "locations": [
+    {
+      "id": 1,
+      "name": "Location 1",
+      "address": "Colombo",
+      "description": "",
+      "stations": [
+        {
+          "id": 1,
+          "plug": "ABC",
+          "network": "ABc"
+        },
+        {
+          "id": 2,
+          "plug": "ABC",
+          "network": "ABc"
+        }
+      ],
+      "open24": false,
+      "restricted": false,
+      "payment": false,
+      "hours": "",
+      "price": "",
+      "phone": "",
+      "parkingLevel": "",
+      "newLocation": {
+        "lat": 7.8731,
+        "lng": 80.7718
+      },
+      "parking": [],
+      "access": [],
+      "amenities": []
+    },
+    {
+      "id": 2,
+      "name": "Location 1",
+      "address": "",
+      "description": "",
+      "stations": [
+        {
+          "id": 3,
+          "plug": "ABC",
+          "network": "ABc"
+        },
+        {
+          "id": 4,
+          "plug": "ABC",
+          "network": "ABc"
+        }
+      ],
+      "open24": false,
+      "restricted": false,
+      "payment": false,
+      "hours": "",
+      "price": "",
+      "phone": "",
+      "parkingLevel": "",
+      "newLocation": {},
+      "parking": [],
+      "access": [],
+      "amenities": []
+    },
+    {
+      "name": "New 1",
+      "address": "New 1",
+      "description": "",
+      "stations": [
+        {
+          "plug": "",
+          "network": ""
+        }
+      ],
+      "open24": "",
+      "restricted": false,
+      "payment": false,
+      "hours": "1",
+      "price": "",
+      "phone": "",
+      "parkingLevel": "",
+      "lat": 7.203411494125262,
+      "lng": 80.6893182861328,
+      "parking": [],
+      "access": [],
+      "amenities": [],
+      "id": 3
+    },
+    {
+      "name": "New 2",
+      "address": "New 2",
+      "description": "ABC",
+      "stations": [
+        {
+          "plug": "",
+          "network": ""
+        }
+      ],
+      "open24": "",
+      "restricted": false,
+      "payment": false,
+      "hours": "",
+      "price": "80",
+      "phone": "",
+      "parkingLevel": "",
+      "lat": 7.385942989195337,
+      "lng": 80.62614689941405,
+      "parking": [
+        "Garage"
+      ],
+      "access": [
+        "Guest Only"
+      ],
+      "amenities": [
+        "Wifi"
+      ],
+      "id": 4
+    }
+  ],
+  "Plugs": [
+    {
+      "id": 1,
+      "name": "CCS/SAE",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "name": "CHAdeMo",
+      "description": ""
+    },
+    {
+      "id": 3,
+      "name": "J-1772",
+      "description": ""
+    },
+    {
+      "id": 4,
+      "name": "Type 2",
+      "description": ""
+    },
+    {
+      "id": 5,
+      "name": "Type 3",
+      "description": ""
+    },
+    {
+      "id": 6,
+      "name": "Three Phase",
+      "description": ""
+    }
+  ],
+  "Network": [
+    {
+      "id": 1,
+      "name": "No NetWork",
+      "description": ""
+    }
+  ],
+  "Make": [
+    {
+      "id": 1,
+      "name": "Audi",
+      "description": ""
+    },
+    {
+      "id": 1,
+      "name": "BMW",
+      "description": ""
+    }
+  ],
+  "Model": [
+    {
+      "id": 1,
+      "name": "Model 1",
+      "description": ""
+    },
+    {
+      "id": 1,
+      "name": "Model 2",
+      "description": ""
+    }
+  ],
+  "Trim": [
+    {
+      "id": 1,
+      "name": "Trim 1",
+      "description": ""
+    },
+    {
+      "id": 1,
+      "name": "Trim 2",
+      "description": ""
+    }
+  ]
+}
