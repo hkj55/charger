@@ -122,12 +122,15 @@ body {
 }
 
 .circle {
-  background-color: #d83b01;
+  /* background-color: #d83b01;
   border-radius: 50%;
-  color: #fff;
-  height: 2.5em;
+  color: #fff; */
+  height: 2.4em;
   position: relative;
-  width: 2.5em;
+  width: 2.4em;
+  right: 1em;
+  bottom: 2em;
+
 
   border: 1px solid transparent;
 }

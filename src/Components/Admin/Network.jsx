@@ -5,40 +5,46 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DataTable from 'react-data-table-component';
-import TextField from '@mui/material/TextField';/* 
-import Textarea from '@mui/joy/Textarea'; */
+import TextField from '@mui/material/TextField';
+import api from '../../api/axios'
 
 const Network = () => {
+  
+  const [networks, setNetworks] = useState([])
+  const [network, setNetwork] = useState('');
+  const [des, setDes] = useState('')
+  const [isEdit, setIsEdit] = useState(false)
+  const [id, setId] = useState(0)
   
   const columns =[
     {
       name: 'Network',
-      selector: row => row.fname,
+      selector: row => row.name,
       wrap: true,
-      width: '100px',
     },
     {
       name: 'Description',
-      selector: row => row.fname,
+      selector: row => row.description,
       wrap: true,
-      width: '100px',
     },
     {
       name: 'Actions',
-      button: true,
-      width: '300px',  
+      wrap: true,
+      width: '200px',  
       selector: row => row.vatNo,
       cell: (row) => (
         <div style={{display: 'flex', justifyContent: 'space-between'}}>          
           <Button
             className="edit-button"
             variant="warning"
+            onClick={() => clickEdit(row.name, row.description, row.id)}
           >
               Edit
           </Button>
           <Button 
             className= "ms-3 delete-button"
             variant="danger"
+            onClick={() => handleDelete(row.id)}
             >
               Delete 
           </Button>
@@ -47,12 +53,73 @@ const Network = () => {
       ),
     },  
 ]
+  
+const fetchNetworks = async () => {
+  try {
+    const response = await api.get('/Network');
+    setNetworks(response.data);
+  } catch (err) {
+    if (err.response) {
+      // Not in the 200 response range 
+      console.log(err.response.data);
+      console.log(err.response.status);
+      console.log(err.response.headers);
+    } else {
+      console.log(`Error: ${err.message}`);
+    }
+  }
+}
+    
+useEffect(() => {
+  fetchNetworks();
+}, [])
 
-const data = [1, 2]
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const newNetwork = {name:network, description:des};
+  try {
+    const response = await api.post('/Network', newNetwork);
+    console.log(response);
+    fetchNetworks();
+    setNetwork('')
+    setDes('')
+    
+  } catch (err) {
+    console.log(`Error: ${err.message}`);
+  }
+}
 
-const handleImageChange = (e) => {
-  const file = e.target.files[0];
-};
+const clickEdit = (plug, des, id) => {
+  setIsEdit(true)
+  setNetwork(plug)
+  setId(id)
+  setDes(des)
+}
+
+
+const handleEdit = async (id) => {
+  const updated = {name:network, description:des};
+  try {
+    await api.put(`/Network/${id}`, updated);  
+    fetchNetworks();    
+    setNetwork('');
+    setDes('');
+    setIsEdit(false);
+  } catch (err) {
+    console.log(`Error: ${err.message}`);
+  }
+}
+
+const handleDelete = async (id) => {
+  try {
+    await api.delete(`/Network/${id}`);  
+    fetchNetworks();    
+    setNetwork('')
+    setDes('')
+  } catch (err) {
+    console.log(`Error: ${err.message}`);
+  }
+}
 
   return (
     <div>
@@ -67,6 +134,8 @@ const handleImageChange = (e) => {
                       id="filled-basic" 
                       label="Network" 
                       variant="standard" 
+                      value={network} 
+                      onChange={e => setNetwork(e.target.value)}
                     /><br />
                     <TextField 
                       className='mb-3'
@@ -74,15 +143,30 @@ const handleImageChange = (e) => {
                       label="Description" 
                       variant="standard" 
                       fullWidth 
+                      value={des} 
+                      onChange={e => setDes(e.target.value)}
                     /><br/>
-                    <Button>Add New</Button>
+                    <Button
+                        className={isEdit ? 'hide' : ''}
+                        disabled={network === ''}
+                        onClick={handleSubmit}
+                      >
+                        Add New
+                      </Button>
+                      <Button
+                        className={isEdit ? '' : 'hide'}
+                        disabled={network === ''}
+                        onClick={() => handleEdit(id)}
+                      >
+                        Edit
+                      </Button>
                   </Form>
                 </Row>
               </Col>
               <Col md={8} className='gradient-background py-3'>
             <DataTable
               columns={columns}
-              data={data}
+              data={networks}
               pagination
               persistTableHead
               responsive/* 

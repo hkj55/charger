@@ -1,97 +1,12 @@
 {
   "locations": [
     {
-      "id": 1,
-      "name": "Location 1",
-      "address": "Colombo",
-      "description": "",
-      "stations": [
-        {
-          "id": 1,
-          "plug": "ABC",
-          "network": "ABc"
-        },
-        {
-          "id": 2,
-          "plug": "ABC",
-          "network": "ABc"
-        }
-      ],
-      "open24": false,
-      "restricted": false,
-      "payment": false,
-      "hours": "",
-      "price": "",
-      "phone": "",
-      "parkingLevel": "",
-      "newLocation": {
-        "lat": 7.8731,
-        "lng": 80.7718
-      },
-      "parking": [],
-      "access": [],
-      "amenities": []
-    },
-    {
-      "id": 2,
-      "name": "Location 1",
-      "address": "",
-      "description": "",
-      "stations": [
-        {
-          "id": 3,
-          "plug": "ABC",
-          "network": "ABc"
-        },
-        {
-          "id": 4,
-          "plug": "ABC",
-          "network": "ABc"
-        }
-      ],
-      "open24": false,
-      "restricted": false,
-      "payment": false,
-      "hours": "",
-      "price": "",
-      "phone": "",
-      "parkingLevel": "",
-      "newLocation": {},
-      "parking": [],
-      "access": [],
-      "amenities": []
-    },
-    {
-      "name": "New 1",
-      "address": "New 1",
-      "description": "",
-      "stations": [
-        {
-          "plug": "",
-          "network": ""
-        }
-      ],
-      "open24": "",
-      "restricted": false,
-      "payment": false,
-      "hours": "1",
-      "price": "",
-      "phone": "",
-      "parkingLevel": "",
-      "lat": 7.203411494125262,
-      "lng": 80.6893182861328,
-      "parking": [],
-      "access": [],
-      "amenities": [],
-      "id": 3
-    },
-    {
       "name": "New 2",
       "address": "New 2",
       "description": "ABC",
       "stations": [
         {
-          "plug": "",
+          "plug": "CHAdeMo",
           "network": ""
         }
       ],
@@ -113,7 +28,38 @@
       "amenities": [
         "Wifi"
       ],
-      "id": 4
+      "id": 1
+    },
+    {
+      "name": "New 3",
+      "address": "New 3",
+      "description": "",
+      "stations": [
+        {
+          "plug": "CHAdeMo",
+          "network": ""
+        }
+      ],
+      "open24": "",
+      "restricted": false,
+      "payment": false,
+      "hours": "1",
+      "price": "110",
+      "phone": "",
+      "parkingLevel": "",
+      "lat": 7.544696793191925,
+      "lng": 80.7805476618801,
+      "parking": [
+        "Pull through parking"
+      ],
+      "access": [
+        "Customers Only"
+      ],
+      "amenities": [
+        "Restrooms",
+        "Parking"
+      ],
+      "id": 2
     }
   ],
   "Plugs": [
@@ -128,9 +74,8 @@
       "description": ""
     },
     {
-      "id": 3,
-      "name": "J-1772",
-      "description": ""
+      "name": "Toyota edit",
+      "id": 3
     },
     {
       "id": 4,
@@ -146,6 +91,11 @@
       "id": 6,
       "name": "Three Phase",
       "description": ""
+    },
+    {
+      "name": "Test 1",
+      "description": "Testing edit",
+      "id": 7
     }
   ],
   "Network": [
@@ -153,42 +103,46 @@
       "id": 1,
       "name": "No NetWork",
       "description": ""
-    }
-  ],
-  "Make": [
+    },
     {
-      "id": 1,
-      "name": "Audi",
+      "id": 2,
+      "name": "NetWork 2",
       "description": ""
     },
     {
-      "id": 1,
-      "name": "BMW",
-      "description": ""
+      "name": "Testing",
+      "description": "Test edit",
+      "id": 3
     }
   ],
-  "Model": [
+  "makes": [
     {
       "id": 1,
-      "name": "Model 1",
-      "description": ""
+      "name": "Audi"
     },
     {
-      "id": 1,
-      "name": "Model 2",
-      "description": ""
+      "id": 2,
+      "name": "BMW"
     }
   ],
-  "Trim": [
+  "models": [
     {
       "id": 1,
-      "name": "Trim 1",
-      "description": ""
-    },
+      "name": "Model 1"
+    }
+  ],
+  "trims": [
     {
       "id": 1,
-      "name": "Trim 2",
-      "description": ""
+      "name": "Trim 1"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "make": "BMW",
+      "model": "Model 1",
+      "trim": "Trim 1"
     }
   ]
 }

@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
 import CloseButton from 'react-bootstrap/CloseButton';
 import {RxCopy} from 'react-icons/rx'
 import InputLabel from '@mui/material/InputLabel';
@@ -16,8 +13,6 @@ import api from '../../api/axios'
 
 const StationCard = (props) => {
 
-    const[indexNo, setIndexNo] = useState(0)
-    const [age, setAge] = React.useState('');
     const [plugs, setPlugs] = useState([])
     const [plug, setPlug] = useState('')
     const [networks, setNetworks] = useState([])
@@ -62,12 +57,10 @@ const StationCard = (props) => {
   }, [])
 
   useEffect(() => {
-    props.setStations([{plug, network}])
-  },[plug, network, props])
-
-    const handleChange = (event) => {
-      setAge(event.target.value);
-    };
+    if(plug !== ''){
+      props.setStations({plug, network})
+    }
+  },[plug, network])
 
   return (
     <Col md={6}>
@@ -88,13 +81,13 @@ const StationCard = (props) => {
                       labelId="demo-simple-select-standard-label"
                       id="demo-simple-select-standard"
                       value={plug}
-                      onChange={handleChange}
+                      onChange={(e) => setPlug(e.target.value)}
                       label="Station"
                       >
                       {
-                        plugs.map((item) => (
-                          <MenuItem key={item.id} value={item.name}>
-                            {item.name}
+                        plugs.map((plug) => (
+                          <MenuItem key={plug.id} value={plug.name}>
+                            {plug.name}
                           </MenuItem>
                         ))
                       }
@@ -106,13 +99,13 @@ const StationCard = (props) => {
                       labelId="demo-simple-select-standard-label"
                       id="demo-simple-select-standard"
                       value={network}
-                      onChange={handleChange}
+                      onChange={(e) => setNetwork(e.target.value)}
                       label="Network"
                       >
                       {
-                        networks.map((item) => (
-                          <MenuItem key={item.id} value={item.name}>
-                            {item.name}
+                        networks.map((network) => (
+                          <MenuItem key={network.id} value={network.name}>
+                            {network.name}
                           </MenuItem>
                         ))
                       }

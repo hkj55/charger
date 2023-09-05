@@ -16,7 +16,8 @@ const AddNew = (props) => {
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
   const [description, setDescription] = useState('')
-  const [stations, setStations] = useState([])
+  const [stations, setStations] = useState({})/* 
+  const [stationList, setStationList] = useState([]) */
   const [open24, setOpen24] = useState(false)
   const [restricted, setRestricted] = useState(false)
   const [payment, setPayment] = useState(false)
@@ -25,38 +26,12 @@ const AddNew = (props) => {
   const [phone, setPhone] = useState('')
   const [parkingLevel, setParkingLevel] = useState('')
   const [lat, setLat] = useState('')
-  const [lng, setLng] = useState('')/* 
-  const [newLocation, setNewLocation] = useState({}) */
+  const [lng, setLng] = useState('')
   const [parking, setParking] = useState([])
   const [access, setAccess] = useState([])
   const [amenities, setAmenities] = useState([])
-  const [places, setPlaces] = useState(PlacesData)
-  const [addDisabled, setAddDisabled] = useState(true)
   const [stationComponents, setStationComponents] = useState([{key:1, index:1}]);
   const [index, setIndex] = useState(1)
-
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    
-  }, [name, address, ]);
-
-  useEffect(() => {
-    localStorage.setItem('places', JSON.stringify(props.places))   
-    console.log(props.places) 
-  }, [props.places]);
-
-  const addNew = () => {
-    const id = PlacesData.length + 1
-    const newPlace = {id,  name, stations, title: 'one' }
-   //setPlaces(newPlace)
-
-    setName('')
-    setStations([])
-    setLat('')
-    setLng('')
-
-  }
 
   useEffect(() => {
     setName('')
@@ -65,7 +40,7 @@ const AddNew = (props) => {
     setStations([])
     setLat('')
     setLng('')
-    setOpen24('')
+    setOpen24(false)
     setPrice('')
     setPhone('')
     setParkingLevel('')
@@ -73,11 +48,7 @@ const AddNew = (props) => {
     setAccess([])
     setAmenities([])
   }, [props]);
-
-/*   useEffect(() => {
-    console.log(componentList)
-  }, [componentList]); */
-
+  
   const handleRemove = (indexToRemove) => {
     const updatedStations = stationComponents.filter(
       (station) => station.key !== indexToRemove
@@ -136,6 +107,7 @@ const AddNew = (props) => {
                     access, amenities};
     try {
       const response = await api.post('/locations', newlocation);
+      props.setIsAdd(!props.isAdd)
       console.log(response)
       setName('')
       setAddress('')
@@ -143,7 +115,7 @@ const AddNew = (props) => {
       setStations([])
       setLat('')
       setLng('')
-      setOpen24('')
+      setOpen24(false)
       setPrice('')
       setPhone('')
       setParkingLevel('')
@@ -226,7 +198,6 @@ const AddNew = (props) => {
                         key={station.key}
                         index={station.index}
                         handleRemove={() => handleRemove(station.key)}
-                        stations={stations}
                         setStations={setStations}
                       />
                     ))}
@@ -240,6 +211,8 @@ const AddNew = (props) => {
                       type={'switch'}
                       id={'ac1'}
                       label={'Open 24/7'}
+                      value={open24}
+                      onChange={e => setOpen24(e.target.value)}
                     />
                     </Col>
                     <Col xs={6} md={4} className='add'>
@@ -247,6 +220,8 @@ const AddNew = (props) => {
                         type={'switch'}
                         id={'ac2'}
                         label={'Restricted Access'}
+                        value={restricted}
+                        onChange={e => setRestricted(e.target.value)}
                       />
                     </Col>
                     <Col xs={6} md={4} className='add'>
@@ -254,6 +229,8 @@ const AddNew = (props) => {
                         type={'switch'}
                         id={'ac3'}
                         label={'Payment Required'}
+                        value={payment}
+                        onChange={e => setPayment(e.target.value)}
                       />
                     </Col>
                   </Row>

@@ -42,7 +42,7 @@ const MapContainer = (props) => {
         onClick={handleMapClick}
       >
         {clickedLocation && (
-          <Marker lat={clickedLocation.lat} lng={clickedLocation.lng} text="Clicked Location" />
+          <Marker lat={clickedLocation.lat} lng={clickedLocation.lng} tooltip={"New Location" } />
         )}
         {/* <Marker lat={7.2906} lng={80.6337}  /> */}
       </GoogleMapReact>

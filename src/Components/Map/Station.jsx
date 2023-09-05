@@ -23,9 +23,15 @@ import {MdOutlineAddCircleOutline} from 'react-icons/md';
 
 const Station = (props) => {
 
+  const [isOpen, setIsOpen] = useState('')
+
   useEffect(() => {
-    console.log(props.place)
-  }, [props.place]);
+    if(props.open24){
+      setIsOpen('Open 24/7')
+    }else{
+      setIsOpen('Not open 24/7')
+    }
+  }, [props.open24]);
 
   return (
     <div>
@@ -52,17 +58,17 @@ const Station = (props) => {
             <Row>
               <Col md={9}>
                 <Row className='title ps-1'>
-                  Mr. Rahuman
+                  {props.name}
                 </Row>
                 <Row className='des ps-1'>
-                  J-1777
+                  {/* {props.stations} */}
                 </Row>
               </Col>
               <Col md={3} className='checkIn'>
-                <Button className='circularButton' variant="success">
+                {/* <Button className='circularButton' variant="success">
                   <TiTick size={50}/>
                 </Button>
-                Check In
+                Check In */}
               </Col>
             </Row>
           </div>
@@ -114,7 +120,7 @@ const Station = (props) => {
                 <MdLocationOn size={25}/>
               </Col>
               <Col md={11}>
-                
+                {props.address}
               </Col>
             </Row>
             <Row className='underline'>
@@ -122,7 +128,7 @@ const Station = (props) => {
                 <FaPhone size={17}/>
               </Col>
               <Col md={11}>
-                
+                {props.phone}
               </Col>
             </Row>
             <Row className='underline'>
@@ -130,7 +136,7 @@ const Station = (props) => {
                 <FaDollarSign size={20}/>
               </Col>
               <Col md={11}>
-                
+                {props.price}
               </Col>
             </Row>
             <Row className='underline'>
@@ -138,7 +144,7 @@ const Station = (props) => {
                 <FaStar size={20}/>
               </Col>
               <Col md={11}>
-                
+                {props.amenities}
               </Col>
             </Row>
             <Row className='underline'>
@@ -146,7 +152,7 @@ const Station = (props) => {
                 <RiParkingFill size={20}/>
               </Col>
               <Col md={11}>
-                
+                {props.parking}
               </Col>
             </Row>
             <Row className='underline'>
@@ -154,7 +160,7 @@ const Station = (props) => {
                 <FaClock size={20}/>
               </Col>
               <Col md={11}>
-                
+                {isOpen}
               </Col>
             </Row>
             <Row className='underline'>
@@ -162,10 +168,10 @@ const Station = (props) => {
                 <FaInfoCircle size={20}/>
               </Col>
               <Col md={11}>
-                
+                {props.description}
               </Col>
             </Row>
-          </div>          
+          </div> {/*          
           <div className='box'>
             <Row className='underline title'>
               Plugs
@@ -202,7 +208,7 @@ const Station = (props) => {
                 Add photo
               </Col>
             </Row>
-          </div>
+          </div> */}
         </Offcanvas.Body>
       </Offcanvas>
     </div>

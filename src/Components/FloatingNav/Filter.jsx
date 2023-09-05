@@ -19,7 +19,6 @@ import {FaFilter} from 'react-icons/fa';
 import {RiMenuAddFill} from 'react-icons/ri'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Button } from 'react-bootstrap';
-import AddVehicle from './AddVehicle';
 import AddVehiclePop from './AddVehiclePop';
 
 const listItems = [
@@ -33,8 +32,6 @@ const Filter = (props) => {
 
   const [station, setStation] = useState(true);
   const [activeItem, setActiveItem] = useState('Any');
-  const [plugs, setPlugs] = useState([]);
-  const [amenities, setAmenities] = useState([]);
 
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false)
@@ -47,10 +44,10 @@ const Filter = (props) => {
     const checkboxValue = event.target.value;
     if (event.target.checked) {
       // Checkbox is checked, add its value to the parking array
-      setPlugs([...plugs, checkboxValue]);
+      props.setPlugs([...props.plugs, checkboxValue]);
     } else {
       // Checkbox is unchecked, remove its value from the parking array
-      setPlugs(plugs.filter(item => item !== checkboxValue));
+      props.setPlugs(props.plugs.filter(item => item !== checkboxValue));
     }
   };
   
@@ -58,24 +55,17 @@ const Filter = (props) => {
     const checkboxValue = event.target.value;
     if (event.target.checked) {
       // Checkbox is checked, add its value to the amenities array
-      setAmenities([...amenities, checkboxValue]);
+      props.setAmenities([...props.amenities, checkboxValue]);
     } else {
       // Checkbox is unchecked, remove its value from the amenities array
-      setAmenities(amenities.filter(item => item !== checkboxValue));
+      props.setAmenities(props.amenities.filter(item => item !== checkboxValue));
     }
   };
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   
   const openClick = () => setOpen(true);
 
   return (
-    <div>{/* 
-    <AddVehicle 
-      show={show}
-      onHide={() => setShow(false)}
-    /> */}
+    <div>
     <AddVehiclePop
     open={open}
     setOpen = {setOpen}
@@ -107,7 +97,7 @@ const Filter = (props) => {
                   <RiMenuAddFill size={15}/>
                 </Button>
               </Col>           
-            </Row>
+            </Row>{/* 
             <Row className='mt-3 p-3' >
               <Row className='topics mb-3'>
                 Station Count
@@ -127,7 +117,7 @@ const Filter = (props) => {
                   ))}
                 </ListGroup>
               </Row>
-            </Row>
+            </Row> */}
             <div>
               <Row className='topics mt-3 mx-0'>
                   Plugs

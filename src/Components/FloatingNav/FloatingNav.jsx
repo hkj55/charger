@@ -3,16 +3,11 @@ import Fab from '@mui/material/Fab';
 import { MdAddLocationAlt, MdAdminPanelSettings } from 'react-icons/md';
 import {FaFilter} from 'react-icons/fa';
 import AddNew from '../FloatingNav/AddNew';
-import Offcanvas from 'react-bootstrap/Offcanvas';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
-import ccs from '../../images/Combo-ccs-eu.svg.png'
 import Filter from './Filter';
 import Admin from '../Admin/Admin';
 
-const FloatingNav = (places, setPlaces) => {
+const FloatingNav = ({isAdd, setIsAdd, plugs, setPlugs, amenities, setAmenities}) => {
   
   const [showAdd, setShowAdd] = useState(false)
   const [show, setShow] = useState(false);
@@ -33,24 +28,27 @@ const FloatingNav = (places, setPlaces) => {
     }
   };
 
-  const handleAdd = () => setShowAdd(true);
+  const handleAdd = () => {
+    setShowAdd(true)
+  };
+
   const handleAdmin = () => setShowAdmin(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
 
   useEffect(() => {
-    console.log(checkedItems)
-  }, [checkedItems]);
+    console.log('isAdd inside Floating nav component')
+    console.log(isAdd)
+  }, [isAdd]);
 
   return (
     <div >   
     <AddNew
       show={showAdd}
       onHide={() => setShowAdd(false)}
-      places = {places}
-      setPlaces = {setPlaces} 
+      isAdd={isAdd}
+      setIsAdd={setIsAdd}
     />    
     <Admin
       show={showAdmin}
@@ -59,6 +57,10 @@ const FloatingNav = (places, setPlaces) => {
     <Filter
       show={show}
       handleClose={handleClose}
+      plugs={plugs}
+      setPlugs={setPlugs}
+      amenities={amenities}
+      setAmenities={setAmenities}
     /> 
     <Row className='m-1'>
     <Fab 
@@ -69,10 +71,13 @@ const FloatingNav = (places, setPlaces) => {
     </Fab>      
     </Row>
     <Row className='m-1'>
-    <Fab color="secondary" aria-label="edit">
+    <Fab 
+      color="secondary" 
+      aria-label="edit"
+      onClick={handleAdd}
+    >
       <MdAddLocationAlt 
         size={25}
-        onClick={handleAdd}
       />
     </Fab> 
     </Row>

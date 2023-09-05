@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import GoogleMapReact from 'google-map-react';/* 
-import { PlacesData } from '../../Data/Data'; */
+import GoogleMap  from 'google-map-react';
 import Marker from './Marker';
-import api from '../../api/axios'
 
-const MapContainer = () => {
+const MapContainer = (props) => {
 
-  const [markers, setMarkers] = useState([]);
+  const points = props.markers;
 
   const defaultProps = {
     center: {
@@ -16,6 +14,20 @@ const MapContainer = () => {
     zoom: 10, // Default zoom level
   };
 
+  /* const defaultProps = {
+    center: {
+      lat: 51.506, 
+      lng: -0.169 , 
+    },
+    zoom: 15, 
+  };
+
+  const points = [
+    { id: 1, name: "Round Pond", lat: 51.506, lng: -0.184 },
+    { id: 2, name: "The Long Water", lat: 51.508, lng: -0.175 },
+    { id: 3, name: "The Serpentine", lat: 51.505, lng: -0.164 }
+  ];   */
+
   const distanceToMouse = (pt, mp) => {
     if (pt && mp) {
       // return distance between the marker and mouse pointer
@@ -24,39 +36,40 @@ const MapContainer = () => {
       );
     }
   };
-  
-  useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const response = await api.get('/locations');
-        setMarkers(response.data);
-      } catch (err) {
-        if (err.response) {
-          // Not in the 200 response range 
-          console.log(err.response.data);
-          console.log(err.response.status);
-          console.log(err.response.headers);
-        } else {
-          console.log(`Error: ${err.message}`);
-        }
-      }
-    }
-
-    fetchLocations();
-  }, [])
 
   return (
     <div className='main-map'>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyDT_0tiTNzV5dw8Khl-K0cY5kMmrvcmlfA' }} // Replace with your API key
+      <GoogleMap 
+        bootstrapURLKeys={{ key: 'AIzaSyDT_0tiTNzV5dw8Khl-K0cY5kMmrvcmlfA' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
         distanceToMouse={distanceToMouse}
       >
-        {markers.map((marker, index) => (
-        <Marker key={index} lat={marker.lat} lng={marker.lng} />
-      ))}
-      </GoogleMapReact>
+        
+        {points.map((point) => {
+          return (
+            <Marker 
+              key={point.id} 
+              lat={point.lat} 
+              lng={point.lng} 
+              tooltip={point.name} 
+              name={point.name}
+              address={point.address}
+              description={point.description}
+              stations={point.stations}
+              open24={point.open24}
+              restricted={point.restricted}
+              payment={point.payment}
+              hours={point.hours}
+              phone={point.phone}
+              parkingLevel={point.parkingLevel}
+              parking={point.parking}
+              access={point.access}
+              amenities={point.amenities}
+              />
+          );
+        })}
+      </GoogleMap >
     </div>
   );
 };
