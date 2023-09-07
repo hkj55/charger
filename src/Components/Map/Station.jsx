@@ -35,15 +35,14 @@ const Station = (props) => {
 
   return (
     <div>
-        <Offcanvas 
-            show={props.show} 
-            onHide={props.handleClose}
-            scroll= {true}
-            backdrop= {false}
-    >
+      <Offcanvas 
+        show={props.show} 
+        onHide={props.handleClose}
+        scroll= {true}
+        backdrop= {false}
+      >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>
-           
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
@@ -123,7 +122,7 @@ const Station = (props) => {
                 {props.address}
               </Col>
             </Row>
-            <Row className='underline'>
+            <Row className={props.phone === '' ? 'hide' : 'underline'}>
               <Col md={1}>
                 <FaPhone size={17}/>
               </Col>
@@ -131,7 +130,7 @@ const Station = (props) => {
                 {props.phone}
               </Col>
             </Row>
-            <Row className='underline'>
+            <Row className={props.price === '' ? 'hide' : 'underline'}>
               <Col md={1}>
                 <FaDollarSign size={20}/>
               </Col>
@@ -139,7 +138,7 @@ const Station = (props) => {
                 {props.price}
               </Col>
             </Row>
-            <Row className='underline'>
+            <Row className={props.amenities.length === 0 ? 'hide' : 'underline'}>
               <Col md={1}>
                 <FaStar size={20}/>
               </Col>
@@ -147,7 +146,7 @@ const Station = (props) => {
                 {props.amenities}
               </Col>
             </Row>
-            <Row className='underline'>
+            <Row className={props.parking.length  === 0 ? 'hide' : 'underline'}>
               <Col md={1}>
                 <RiParkingFill size={20}/>
               </Col>
@@ -163,7 +162,7 @@ const Station = (props) => {
                 {isOpen}
               </Col>
             </Row>
-            <Row className='underline'>
+            <Row className={props.description === '' ? 'hide' : 'underline'}>
               <Col md={1}>
                 <FaInfoCircle size={20}/>
               </Col>

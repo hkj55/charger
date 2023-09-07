@@ -9,11 +9,12 @@ const Marker = ({ tooltip, name, address, description, stations, open24,
 
   const [show, setShow] = useState(false);  
 
-  const handleClose = () => setShow(false);
-
+  const handleClose = () => {
+    setShow(false)
+  };
   const handleShow = () => {
-    setShow(true);
-  }
+    setShow(true)
+  };
 
   const handleClick = () => {
     console.log(`You clicked on ${tooltip}`);
@@ -21,9 +22,9 @@ const Marker = ({ tooltip, name, address, description, stations, open24,
   };
 
   return (
-    <div  onClick={handleClick}>{/* 
+    <div  >{/* 
       <span className="circleText" title={tooltip} /> */}
-      <img alt="marker" src={redMarker} className={ "circle"} title={tooltip}/>
+      <img onClick={handleClick} alt="marker" src={redMarker} className={ "circle"} title={tooltip}/>
         <Station
           show={show}
           handleClose={handleClose}
@@ -35,6 +36,7 @@ const Marker = ({ tooltip, name, address, description, stations, open24,
           restricted={restricted}
           payment={payment}
           hours={hours}
+          price={price}
           phone={phone}
           parkingLevel={parkingLevel}
           parking={parking}

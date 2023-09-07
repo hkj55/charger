@@ -60,6 +60,105 @@
         "Parking"
       ],
       "id": 2
+    },
+    {
+      "name": "New location",
+      "address": "New new",
+      "description": "",
+      "stations": [
+        {
+          "plug": "CHAdeMo",
+          "network": ""
+        }
+      ],
+      "open24": false,
+      "restricted": "false",
+      "payment": "false",
+      "hours": "",
+      "price": "1000",
+      "phone": "",
+      "parkingLevel": "",
+      "lat": 7.7890904174122575,
+      "lng": 80.02121220703124,
+      "parking": [
+        "Pull through parking",
+        "Trailer Friendly"
+      ],
+      "access": [
+        "Customers Only"
+      ],
+      "amenities": [
+        "Restroom",
+        "Parking",
+        "Wifi"
+      ],
+      "id": 3
+    },
+    {
+      "name": "Test",
+      "address": "Testing",
+      "description": "",
+      "stations": [
+        {
+          "plug": "CCS/SAE",
+          "network": "NetWork 2"
+        }
+      ],
+      "open24": "false",
+      "restricted": "false",
+      "payment": false,
+      "hours": "24",
+      "price": "700",
+      "phone": "",
+      "parkingLevel": "",
+      "lat": 7.521767172529054,
+      "lng": 80.89479092348044,
+      "parking": [
+        "Garage",
+        "Handicapped parking"
+      ],
+      "access": [
+        "Residents Only"
+      ],
+      "amenities": [
+        "Wifi",
+        "Dining"
+      ],
+      "id": 4
+    },
+    {
+      "name": "New ",
+      "address": "New ",
+      "description": "Testing",
+      "stations": [
+        {
+          "plug": "CCS/SAE",
+          "network": "No NetWork"
+        }
+      ],
+      "open24": "false",
+      "restricted": false,
+      "payment": false,
+      "hours": "12",
+      "price": "1000",
+      "phone": "",
+      "parkingLevel": "",
+      "lat": 7.402285444260043,
+      "lng": 81.01135502929687,
+      "parking": [
+        "Pull through parking"
+      ],
+      "access": [
+        "Customers Only",
+        "Guest Only"
+      ],
+      "amenities": [
+        "Restroom",
+        "Shopping",
+        "Parking",
+        "Grocery"
+      ],
+      "id": 5
     }
   ],
   "Plugs": [
@@ -143,6 +242,12 @@
       "make": "BMW",
       "model": "Model 1",
       "trim": "Trim 1"
+    },
+    {
+      "make": "Audi",
+      "model": "Model 1",
+      "trim": "Trim 1",
+      "id": 2
     }
   ]
 }

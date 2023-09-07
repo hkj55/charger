@@ -58,7 +58,7 @@ const StationCard = (props) => {
 
   useEffect(() => {
     if(plug !== ''){
-      props.setStations({plug, network})
+      props.setStations([{plug, network}])
     }
   },[plug, network])
 

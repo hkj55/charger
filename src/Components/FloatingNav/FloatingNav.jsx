@@ -37,11 +37,6 @@ const FloatingNav = ({isAdd, setIsAdd, plugs, setPlugs, amenities, setAmenities}
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    console.log('isAdd inside Floating nav component')
-    console.log(isAdd)
-  }, [isAdd]);
-
   return (
     <div >   
     <AddNew

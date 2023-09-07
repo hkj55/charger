@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Marker from '../Map/Marker';
+import Marker from './Marker';
 
 const MapContainer = (props) => {
   const [clickedLocation, setClickedLocation] = useState(null);

@@ -5,6 +5,8 @@ import Marker from './Marker';
 const MapContainer = (props) => {
 
   const points = props.markers;
+  const [map, setMap] = useState(null); // State to hold the map object
+  const [zoom, setZoom] = useState(10); // State to hold the current zoom level
 
   const defaultProps = {
     center: {
@@ -37,6 +39,17 @@ const MapContainer = (props) => {
     }
   };
 
+  
+  // Function to handle the Google Maps API initialization
+  const handleGoogleApiLoaded = (map, maps) => {
+    setMap(map); // Store the map object in state
+
+    // Update the zoom level when it changes
+    map.addListener('zoom_changed', () => {
+      setZoom(map.getZoom());
+    });
+  };
+
   return (
     <div className='main-map'>
       <GoogleMap 
@@ -44,6 +57,7 @@ const MapContainer = (props) => {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
         distanceToMouse={distanceToMouse}
+        onGoogleApiLoaded={({ map, maps }) => handleGoogleApiLoaded(map, maps)}
       >
         
         {points.map((point) => {
@@ -61,6 +75,7 @@ const MapContainer = (props) => {
               restricted={point.restricted}
               payment={point.payment}
               hours={point.hours}
+              price={point.price}
               phone={point.phone}
               parkingLevel={point.parkingLevel}
               parking={point.parking}

@@ -16,7 +16,7 @@ const AddNew = (props) => {
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
   const [description, setDescription] = useState('')
-  const [stations, setStations] = useState({})/* 
+  const [stations, setStations] = useState([])/* 
   const [stationList, setStationList] = useState([]) */
   const [open24, setOpen24] = useState(false)
   const [restricted, setRestricted] = useState(false)
@@ -109,19 +109,7 @@ const AddNew = (props) => {
       const response = await api.post('/locations', newlocation);
       props.setIsAdd(!props.isAdd)
       console.log(response)
-      setName('')
-      setAddress('')
-      setDescription('')
-      setStations([])
-      setLat('')
-      setLng('')
-      setOpen24(false)
-      setPrice('')
-      setPhone('')
-      setParkingLevel('')
-      setParking([])
-      setAccess([])
-      setAmenities([])
+      props.onHide()
     } catch (err) {
       console.log(`Error: ${err.message}`);
     }
